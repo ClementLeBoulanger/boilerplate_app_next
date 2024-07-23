@@ -42,6 +42,7 @@ const handler = NextAuth({
       if (user) {
         token.id = user.token
         token.email = user.user.email
+        token.name = `${user.user.first_name} ${user.user.last_name}`
       }
       return token
     },
@@ -49,6 +50,7 @@ const handler = NextAuth({
       if (token) {
         session.user.id = token.id
         session.user.email = token.email
+        session.user.name = token.name
       }
       return session
     }

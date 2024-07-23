@@ -8,7 +8,7 @@ export default function Drakkar() {
       justifyContent: 'center',
     }}>
       <svg width="149" height="31" viewBox="0 0 149 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g clip-path="url(#clip0_698_16004)">
+        <g clipPath="url(#clip0_698_16004)">
         <mask id="mask0_698_16004" maskUnits="userSpaceOnUse" x="0" y="0" width="149" height="31">
         <path d="M149 0.939453H0.931641V31.0001H149V0.939453Z" fill="white"/>
         </mask>
