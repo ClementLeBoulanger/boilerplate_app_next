@@ -5,15 +5,15 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { signIn } from 'next-auth/react';
-import useStore from '@/app/store/useStore';
+import { useToast } from '@/components/ui/use-toast'
 import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function SignInForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { toast } = useToast()
   const [errors, setErrors] = useState({ email: '', password: '' });
   const [apiError, setApiError] = useState('');
-  const { setUser } = useStore();
   const router = useRouter();
 
   const validateEmail = (email: string) => {
@@ -48,14 +48,10 @@ export default function SignInForm() {
       if (result?.error) {
         setApiError(result.error)
       } else {
-        // Récupérez l'utilisateur de la session si nécessaire
-        // const session = await getSession();
-        // setUser(session.user);
-        console.log(result)
-
-
-
-        router.push('/')
+        toast({
+          title: "🎉 Connexion réussi",
+        })
+        router.push('/home')
       }
     } catch (error) {
       setApiError('Échec de la connexion. Veuillez vérifier votre connexion réseau.');

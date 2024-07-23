@@ -11,7 +11,6 @@ const handler = NextAuth({
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials, req) {
-        console.log(credentials)
         const res = await fetch('http://localhost:3000/api/v1/login', {
           method: 'POST',
           headers: {
@@ -24,19 +23,17 @@ const handler = NextAuth({
         })
 
         const user = await res.json()
-
-        console.log(user)
-
-        // Si la connexion échoue, renvoie null
         if (!res.ok || !user) {
           return null
         }
-
-        // Si la connexion réussit, renvoie l'utilisateur
         return user
       }
     })
   ],
+  pages: {
+    signIn: '/auth/signin', // Assurez-vous que cette URL est correcte
+    signOut: '/auth/signout', // URL pour la déconnexion, si vous avez une page dédiée
+  },
   session: {
     strategy: 'jwt',
   },

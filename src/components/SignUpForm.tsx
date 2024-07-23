@@ -4,50 +4,49 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { signIn } from 'next-auth/react';
-import useStore from '@/app/store/useStore';
+import { useToast } from '@/components/ui/use-toast';
 import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function SignUpForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [errors, setErrors] = useState({ email: '', password: '', confirmPassword: '' });
-  const [apiError, setApiError] = useState('');
-  const { setUser } = useStore();
-  const router = useRouter();
+  const [email, setEmail] = useState('')
+  const { toast } = useToast()
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [errors, setErrors] = useState({ email: '', password: '', confirmPassword: '' })
+  const [apiError, setApiError] = useState('')
+  const router = useRouter()
 
   const validateEmail = (email: string) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return regex.test(email)
   };
 
   const validatePassword = (password: string) => {
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return regex.test(password);
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    return regex.test(password)
   };
 
 const handleSignUp = async (e: React.FormEvent) => {
-  e.preventDefault();
-  let valid = true;
+  e.preventDefault()
+  let valid = true
 
   // Validation des champs
   if (!validateEmail(email)) {
-    setErrors(prevErrors => ({ ...prevErrors, email: 'Adresse email invalide' }));
-    valid = false;
+    setErrors(prevErrors => ({ ...prevErrors, email: 'Adresse email invalide' }))
+    valid = false
   }
 
   if (!validatePassword(password)) {
-    setErrors(prevErrors => ({ ...prevErrors, password: 'Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial' }));
-    valid = false;
+    setErrors(prevErrors => ({ ...prevErrors, password: 'Le mot de passe doit contenir au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial' }))
+    valid = false
   }
 
   if (password !== confirmPassword) {
-    setErrors(prevErrors => ({ ...prevErrors, confirmPassword: 'Les mots de passe ne correspondent pas' }));
-    valid = false;
+    setErrors(prevErrors => ({ ...prevErrors, confirmPassword: 'Les mots de passe ne correspondent pas' }))
+    valid = false
   }
 
-  if (!valid) return;
+  if (!valid) return
 
   try {
     // Appel API pour l'inscription
@@ -58,9 +57,11 @@ const handleSignUp = async (e: React.FormEvent) => {
     });
 
     if (res.ok) {
-      const user = await res.json();
-      setUser(user.user);
-      router.push('/');
+      toast({
+        title: "🎉 Compte créé avec succès !",
+        description: "Veuillez vous connecter 🙏",
+      })
+      router.push('/auth/signin');
     } else {
       const errorData = await res.json();
       setApiError(errorData.message || 'Échec de l\'inscription');

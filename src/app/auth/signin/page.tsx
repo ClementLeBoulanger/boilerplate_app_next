@@ -5,8 +5,6 @@ import SignInForm from '@/components/SignInForm';
 import { Card } from '@/components/ui/card';
 
 export default function SignIn() {
-
-
   return (
     <div>
         <div style={{
