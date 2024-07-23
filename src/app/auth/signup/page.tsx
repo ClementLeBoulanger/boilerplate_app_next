@@ -2,9 +2,12 @@
 
 import { Card } from '@/components/ui/card';
 import SignUpForm from '@/components/SignUpForm';
+import { useEffect } from 'react';
 
 export default function Signin() {
-
+  useEffect(() => {
+    document.title = 'Drakkar - Créer son compte';
+  }, []);
   return (
     <div>
         <div style={{

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Drakkar from './Drakkar';
 
 export default function SignUpForm() {
   const [email, setEmail] = useState('')
@@ -74,6 +75,7 @@ const handleSignUp = async (e: React.FormEvent) => {
 
   return (
     <form onSubmit={handleSignUp} className="flex flex-col gap-4">
+      <Drakkar />
       <CardHeader>
         <CardTitle>Se créer un compte</CardTitle>
       </CardHeader>

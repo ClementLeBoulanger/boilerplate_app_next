@@ -10,6 +10,7 @@ import { Settings } from "lucide-react"
 import { signOut } from 'next-auth/react' // Importer le hook signOut
 import { useRouter } from "next/navigation";
 import { useToast } from '@/components/ui/use-toast'
+import Drakkar from "./Drakkar";
 
 export default function Navbar() {
   const { toast } = useToast()
@@ -26,7 +27,7 @@ export default function Navbar() {
     <nav className="bg-white border-b border-gray-200">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <div className="text-lg font-semibold text-gray-800">
-          Drakkar
+          <Drakkar />
         </div>
         <div className="space-x-4">
           <DropdownMenu>

@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { signIn } from 'next-auth/react';
 import { useToast } from '@/components/ui/use-toast'
 import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Drakkar from './Drakkar';
 
 export default function SignInForm() {
   const [email, setEmail] = useState('');
@@ -60,6 +61,7 @@ export default function SignInForm() {
 
   return (
     <form onSubmit={handleSignIn} className="flex flex-col gap-4">
+      <Drakkar />
       <CardHeader>
         <CardTitle>Se connecter</CardTitle>
       </CardHeader>
